@@ -67,7 +67,7 @@
                     </a>
                 </button>
                 <button class="icon-btn place-items-center">
-                    <a href="logout.php">
+                    <a href="login.php">
                     <i class="ri-logout-box-r-line"></i>
                     </a>
                 </button>
@@ -75,13 +75,43 @@
 
         </nav>
 </header>
+
+<section class="management-area">
+    <div class="management-area-container container d-grid">
+        <div class="dashboard">
+        <div class="card-dashboard">
+        <h2 class="title independent-title">DASHBOARD</h2> 
+            <header class="card-header">
+                <h2 class="title">
+                    What Do You Want To Do?
+                </h2>
+            </header>
+            <div class="card-body">
+                <a href="./features/appointments.php" class="card-body-link">
+                    <i class="ri-file-line"></i>Manage Appointments
+                </a>
+                <a href="./features/reports.php" class="card-body-link">
+                    <i class="ri-flag-line"></i>Manage Reports
+                </a>
+                <a href="./features/suggestions.php" class="card-body-link">
+                    <i class="ri-customer-service-2-fill"></i>Suggestions
+                </a>
+                <a href="./features/announcements.php" class="card-body-link">
+                    <i class="ri-edit-box-fill"></i>Publish Announcements
+                </a>
+            </div>
+        </div>
+        </div>
+        <div class="card-group d-grid">
+            <div class="card border-gray">
+
+
+
 <section class="welcome-message">
     <div class="container">
-        <h2 class="title independent-title">DASHBOARD</h2> 
         <div class="card">
             <header class="card-header">
-                <small>Welcome Admin!</small>
-                <h2 class="title">Welcome User</h2>
+                <h1 class="title">Welcome User</h1>
             </header>
             <div class="card-body d-grid">
                 <div class="card-image">
@@ -109,63 +139,12 @@
             </div>
         </div>
     </div>
-</section>  
-
-<section class="management-area">
-    <div class="management-area-container container d-grid">
-        <div class="card">
-            <header class="card-header">
-                <h2 class="title">
-                    What Do You Want To Do?
-                </h2>
-            </header>
-            <div class="card-body">
-                <a href="#" class="card-body-link">
-                    <i class="ri-file-line"></i>Manage Appointments
-                </a>
-                <a href="#" class="card-body-link">
-                    <i class="ri-flag-line"></i>Manage Reports
-                </a>
-                <a href="#" class="card-body-link">
-                    <i class="ri-customer-service-2-fill"></i>Suggestions
-                </a>
-                <a href="#" class="card-body-link">
-                    <i class="ri-edit-box-fill"></i>Publish Announcements
-                </a>
-            </div>
-        </div>
-        <div class="card-group d-grid">
-            <div class="card border-gray">
-                <div>
-                    <h2 class="title">
-                        Hello World
-                    </h2>
-                    <p class="class-description">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                        Deserunt fuga natus dolorum sapiente incidunt perspiciatis maiores? 
-                        Commodi alias doloribus, aut omnis, consectetur libero nemo ratione optio 
-                        incidunt ducimus molestiae quam.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="card-group d-grid">
-            <div class="card border-gray">
-                <div>
-                    <h2 class="title">
-                        Hello World
-                    </h2>
-                    <p class="class-description">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                        Deserunt fuga natus dolorum sapiente incidunt perspiciatis maiores? 
-                        Commodi alias doloribus, aut omnis, consectetur libero nemo ratione optio 
-                        incidunt ducimus molestiae quam.
-                    </p>
-                </div>
+</section>
             </div>
         </div>
     </div>
 </section>
+
 
 <footer class="footer">
     <div class="footer-container container">
