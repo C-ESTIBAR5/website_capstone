@@ -1,15 +1,10 @@
-<?php
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Manage Appointments</title>
 
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/appointments.css">
@@ -26,7 +21,7 @@
             <div class="nav-mobile">
                 <ul class="list">
                     <li class="list-item">
-                       <a href="" class="list-link current">Home</a>
+                       <a href="./index.php" class="list-link current">Home</a>
                     </li>
                     <li class="list-item">
                         <a href="" class="list-link">Officials</a>
@@ -77,71 +72,18 @@
 </header>
 
 <section class="management-area">
-    <div class="management-area-container container d-grid">
+    <div class="management-area-container">
         <div class="dashboard">
         <div class="card-dashboard">
-        <h2 class="title independent-title">APPOINTMENTS</h2> 
-            <header class="card-header">
-                <h2 class="title">
-                    What Do You Want To Do?
-                </h2>
-            </header>
+        <h2 class="title independent-title">Manage Appointments</h2>
             <div class="card-body">
-                <a href="appointments.php" class="card-body-link">
-                    <img class="image-certificate" src="./assets/images/certificate.png" alt="certificate">BARANGAY CLEARANCE
+                <a href="" class="card-body-link">
+                    <img class="example-image" src="./assets/images/certificate.png" alt="example-certificate"><b>CERTIFICATE REQUEST FROM:</b><p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+                        Necessitatibus eius exercitationem iure est velit cumque ullam, minima quaerat 
+                        voluptate laborum ab ipsum modi quam ipsa? Placeat optio dicta ipsa consequatur.</p>
                 </a>
-                <a href="appointments.php" class="card-body-link">
-                    <img class="image-certificate" src="./assets/images/certificate.png" alt="certificate">BARANGAY CLEARANCE
-                </a>
-                <a href="appointments.php" class="card-body-link">
-                    <img class="image-certificate" src="./assets/images/certificate.png" alt="certificate">BARANGAY CLEARANCE
-                </a>
-                <a href="appointments.php" class="card-body-link">
-                    <img class="image-certificate" src="./assets/images/certificate.png" alt="certificate">BARANGAY CLEARANCE
-                </a>
-                  
             </div>
         </div>
-        </div>
-        <div class="card-group d-grid">
-            <div class="card border-gray">
-
-
-
-<section class="welcome-message">
-    <div class="container">
-        <div class="card">
-            <header class="card-header">
-                <h1 class="title">Welcome User</h1>
-            </header>
-            <div class="card-body d-grid">
-                <div class="card-image">
-                    <img src="./assets/images/ambiong_logo.jpg" alt="logo of ambiong">
-                </div>
-                <div class="card-information">
-                    <h1 class="title main-title">
-                        Barangay Ambiong
-                    </h1>
-                    <p class="card-description">
-                        Vision - We envision Barangay Ambiong to become a model of a 
-                        just, clean, progressive, and fully developed barangay, 
-                        where people live harmoniously, and enjoy the fullness of God’s love.
-                        <br>
-                        <br>
-                        Mission - To bring about the delivery of adequate and responsive services 
-                        thru peoples involvement, empowerment and networking 
-                        with GO’s, NGO’s, and PO’s by utilizing available resources.
-                        <br>
-                        <br>
-                        Goal - To uplift and improve the quality of life by sustaining 
-                        community mobilization in the barangay development activities.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-            </div>
         </div>
     </div>
 </section>

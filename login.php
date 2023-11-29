@@ -29,9 +29,6 @@
             <div class="nav-mobile">
                 <ul class="list">
                     <li class="list-item">
-                       <a href="" class="list-link current">Home</a>
-                    </li>
-                    <li class="list-item">
                         <a href="" class="list-link">Officials</a>
                     </li>
                     <li class="list-item">
