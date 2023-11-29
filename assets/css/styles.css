@@ -5,7 +5,7 @@
     --light-color: #fff;
     --dark-color: #171721;
     --dark-color-lighter: #7E8299;
-    --accent-color: #FF7F7F;
+    --accent-color: #c51e3a;
     --body-background-color: #202028;
     --border-bottom-color: rgba(255,255,255,0.05);
     --transparent-button-color: rgba(255,255,255,.2);
@@ -28,6 +28,7 @@
     --border-bottom-color: rgba(23,23,23,0.5);
     --transparent-button-color: var(--accent-color);
 }
+
 *,
 *::before,
 *::after {
@@ -223,7 +224,7 @@ i{
 .card {
     background-color: var(--dark-color);
     padding: 2.5rem;
-    border-radius: .4rem;
+    border-radius: 20px;
     box-shadow: .5rem .5rem 1rem rgba(82, 63, 105, .05);
 }
 
@@ -266,103 +267,81 @@ i{
     margin-bottom: var(--margin-small)
 }
 
-.login-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 50vh;
-    background-size: cover;
-    background-position: center;
-}
-.wrapper {
-    width: 420px;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, .2);
+/*management*/
+.dashboard {
+    background-color: transparent;
     backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, .2);
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 20px;
-    padding: 30px 40px;
 }
 
-.wrapper h1 {
-    font-size: var(--font-size-larger);
-    text-align: center;
+.card-dashboard {
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: .5rem .5rem 1rem rgba(82, 63, 105, .05);
 }
 
-.wrapper .input-box {
-    position: relative;
-    width: 100%;
-    height: 50px;
-    margin: 30px 0;
+.management-area {
+    padding-block: 2.5rem;
 }
 
-.input-box input {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    border: 2px solid rgba(255, 255, 255, .2);
-    border-radius: 40px;
-    color: var(--light-color);
-    font-size: 16px;
-    padding: 20px 45px 20px 20px;
-
+.management-area-container {
+    gap:var(--gap-meduim);
 }
 
-.input-box input::placeholder {
-    color: white;
+.card-group{
+    gap:var(--gap-meduim);
 }
 
-.input-box i {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 20px;
+.management-area .card-header{
+    border-bottom: none;
 }
 
-.wrapper .remember-forgot {
+.card-body-link {
+    font-size:var(--font-size-small);
+    background-color: var(--accent-color);
+    margin-bottom: var(--margin-medium);
+    padding: 1.5rem;
+    border-radius: 20px;
     display: flex;
+    align-items: center;
+    gap: var(--gap-small);
+}
+
+.card-group .card {
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: space-between;
-    font-size: 14.5px;
-    margin: -15px 0 15px;
+    min-height: 17.5rem;
+    border-radius: .4rem;
 }
 
-.remember-forgot label input {
-    accent-color: var(--accent-color);
-    margin-right: 3px;
+.card-group .card::after {
+    content: '';
+    position: absolute;
+    width: 10rem;
+    height: 10rem;
+    top: -2px;
+    right: -2px;
+    z-index: -1;
+    border-radius: inherit;
 }
 
-.remember-forgot a {
-    color: var(--accent-color);
-    text-decoration: none;
+.border-gray::after {
+    background-image: linear-gradient(235deg, var(--accent-color), transparent, var(--dark-color));
 }
 
-.remember-forgot a:hover{
-    text-decoration: underline;
+.card-group .card-description {
+    margin-bottom: var(--margin-medium);
 }
 
-.wrapper .btn {
-    width: 100%;
-    height: 45px;
-    background: var(--accent-color);
-    border: none;
-    outline: none;
-    border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
-    cursor: pointer;
-    font-size: var(--font-size-medium);
-    font-weight: 600;
+.card-group .list-link {
+    background-color: var(--transparent-button-color);
+    color: var(--light-color);
 }
-
-
-
-
-
-
-
-
 
 /*footer*/
 .footer {

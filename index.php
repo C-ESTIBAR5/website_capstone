@@ -82,16 +82,16 @@
                 </h2>
             </header>
             <div class="card-body">
-                <a href="./features/appointments.php" class="card-body-link">
+                <a href="appointments.php" class="card-body-link">
                     <i class="ri-file-line"></i>Manage Appointments
                 </a>
-                <a href="./features/reports.php" class="card-body-link">
+                <a href="reports.php" class="card-body-link">
                     <i class="ri-flag-line"></i>Manage Reports
                 </a>
-                <a href="./features/suggestions.php" class="card-body-link">
+                <a href="suggestions.php" class="card-body-link">
                     <i class="ri-customer-service-2-fill"></i>Suggestions
                 </a>
-                <a href="./features/announcements.php" class="card-body-link">
+                <a href="announcements.php" class="card-body-link">
                     <i class="ri-edit-box-fill"></i>Publish Announcements
                 </a>
             </div>

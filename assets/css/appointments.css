@@ -5,7 +5,7 @@
     --light-color: #fff;
     --dark-color: #171721;
     --dark-color-lighter: #7E8299;
-    --accent-color: #FF7F7F;
+    --accent-color: #c51e3a;
     --body-background-color: #202028;
     --border-bottom-color: rgba(255,255,255,0.05);
     --transparent-button-color: rgba(255,255,255,.2);
@@ -300,7 +300,9 @@ i{
 
 .card-body-link {
     font-size:var(--font-size-small);
-    background-color: var(--accent-color);
+    background-color: transparent;
+    border-color: var(--accent-color);
+    border-style: solid;
     margin-bottom: var(--margin-medium);
     padding: 1.5rem;
     border-radius: 20px;
@@ -341,6 +343,11 @@ i{
 .card-group .list-link {
     background-color: var(--transparent-button-color);
     color: var(--light-color);
+}
+
+.image-certificate {
+    width: 80px;
+    height: 80px;
 }
 
 /*footer*/
