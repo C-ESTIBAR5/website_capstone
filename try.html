@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Appointments</title>
+    <title>Reports</title>
 
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/appointments.css">
+    <link rel="stylesheet" href="./assets/css/try.css">
 </head>
 
 <body>
     <div class="background-image">
-        <img src="./assets/images/background.jpg">
+        <img src="./assets/images/Ambiong.jpg">
     </div>
 
     <header class="header">
         <nav class="nav container">
-            <a href="./index.php" class="logo">BARANGAY BUDDY</a>
+            <a href="./index.html" class="logo">BARANGAY BUDDY</a>
             <div class="nav-mobile">
                 <ul class="list">
                     <li class="list-item">
-                       <a href="./index.php" class="list-link current">Home</a>
+                       <a href="./index.html" class="list-link current">Home</a>
                     </li>
                     <li class="list-item">
                         <a href="" class="list-link">Officials</a>
@@ -62,7 +62,7 @@
                     </a>
                 </button>
                 <button class="icon-btn place-items-center">
-                    <a href="login.php">
+                    <a href="login.html">
                     <i class="ri-logout-box-r-line"></i>
                     </a>
                 </button>
@@ -74,21 +74,50 @@
 <section class="management-area">
     <div class="management-area-container">
         <div class="dashboard">
-        <div class="card-dashboard">
-        <h2 class="title independent-title">Manage Appointments</h2>
-            <div class="card-body">
-                <a href="" class="card-body-link">
-                    <img class="example-image" src="./assets/images/certificate.png" alt="example-certificate"><b>CERTIFICATE REQUEST FROM:</b><p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
-                        Necessitatibus eius exercitationem iure est velit cumque ullam, minima quaerat 
-                        voluptate laborum ab ipsum modi quam ipsa? Placeat optio dicta ipsa consequatur.</p>
-                </a>
+            <div class="card-dashboard">
+                <h1 class="title independent-title">Title: <span id="name"></span></h1>
+                <h3>Current Location: <span id="currentLocation"></span></h3>  
+                 <p id="reportContent"></p> 
             </div>
-        </div>
         </div>
     </div>
 </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get the URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
 
+            // Get the 'report' parameter value
+            const reportParam = urlParams.get('report');
+            console.log('Report Param:', reportParam);
 
+            try {
+                // Parse the JSON data
+                const reportData = JSON.parse(decodeURIComponent(reportParam));
+                console.log('Report Data:', reportData);
+
+                // Set values in HTML
+                const nameElement = document.getElementById('name');
+                const currentLocationElement = document.getElementById('currentLocation');
+                const reportContentElement = document.getElementById('reportContent');
+
+                if (nameElement) {
+                    nameElement.innerText = reportData && reportData.resName ? reportData.resName : 'N/A';
+                }
+
+                if (currentLocationElement) {
+                    currentLocationElement.innerText = reportData && reportData.resCurLoc ? reportData.resCurLoc : 'N/A';
+                }
+
+                if (reportContentElement) {
+                    reportContentElement.innerText = reportData && reportData.resReport ? reportData.resReport : 'N/A';
+                }
+            } catch (error) {
+                console.error('Error parsing report data:', error);
+            }
+        });
+    </script>
+    
 <footer class="footer">
     <div class="footer-container container">
         <span class="copyright-information">

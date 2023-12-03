@@ -98,7 +98,7 @@ i{
 /*background-image*/
 .background-image {
     width: 100%;
-    height: 45rem;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -333,17 +333,22 @@ i{
     color: var(--dark-color-lighter);
     background-color: var(--dark-color);
     padding: 1.35rem 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 .footer-container {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-meduim);
+    gap: var(--gap-medium);
 }
+
 
 .footer .list-link {
     padding-left: 0;
     color: var(--accent-color);
+    bottom: 0;
 }
 
 .copyright-information {
@@ -401,6 +406,7 @@ i{
     .footer-container {
         flex-direction: row;
         align-items: center;
+        bottom: 0;
     }
 
     .copyright-information {
@@ -410,10 +416,12 @@ i{
     .footer .list{
         flex-direction: row;
         margin-left: auto;
+        bottom: 0;
     }
 
     .footer .list-link{
         padding-left: 1.5rem;
+        bottom: 0;
     }
 }
 
@@ -498,3 +506,20 @@ i{
         color:var(--accent-color);
     }
 }
+
+.report-content {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease-out;
+    text-align: justify;
+}
+
+.report-content p {
+    margin: 0; 
+}
+
+.report-content h1,
+.report-content h5 {
+    text-align: center;
+}
+

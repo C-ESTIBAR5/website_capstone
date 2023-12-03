@@ -1,7 +1,3 @@
-<?php
-
-?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,17 +11,14 @@
     <link rel="stylesheet" href="./assets/css/login.css">
 </head>
 
-
-
-
 <body>
 <div class="background-image">
-        <img src="./assets/images/background.jpg">
+        <img src="./assets/images/Ambiong.jpg">
     </div>
 
     <header class="header">
         <nav class="nav container">
-            <a href="./index.php" class="logo">BARANGAY BUDDY</a>
+            <a class="logo">BARANGAY BUDDY</a>
             <div class="nav-mobile">
                 <ul class="list">
                     <li class="list-item">
@@ -34,19 +27,7 @@
                     <li class="list-item">
                         <a href="" class="list-link">Barangay Hall Location</a>
                     </li>
-                    <li class="list-item dropdown">
-                        <button class="list-link dropdown-btn place-items-center">
-                            Settings <i class="ri-arrow-drop-right-line"></i>
-                        </button>
-                        <ul class="list dropdown-menu">
-                            <li class="list-item">
-                                <a href="" class="list-link current">Settings</a>
-                            </li>
-                            <li class="list-item">
-                                <a href="" class="list-link current">Terms and Conditions</a>
-                            </li>
-                        </ul>
-                    </li>
+                   
                 </ul>
                 <button class="icon-btn menu-toggle-btn menu-toggle-close place-items-center">
                     <i class="ri-close-line"></i>
@@ -67,25 +48,25 @@
 
 	<section class="login-form">
 		<div class="wrapper">
-			<form action="">
+			<form id="LoginForm">
 				<h1>LOGIN</h1>
 				<div class="input-box">
-					<input type="email" placeholder="Email Address" required>
+					<input type="email" id="EmailAdd" placeholder="Email Address" required>
 					<i class="ri-user-line"></i>
 				</div>
 				<div class="input-box">
-					<input type="password" placeholder="Password" required>
+					<input type="password" id="Password" placeholder="Password" required>
 					<i class="ri-lock-password-line"></i>
 				</div>
-			</form>
+			
 
 				<div class="remember-forgot">
 					<label><input type="checkbox">Remember Me</label>
 					<a href="#">Forget Password?</a>
 				</div>
 
-				<button type="submit" class="btn"><a href="index.php">Login</a></button>
-
+				<button type="submit" id="Loginbtn" class="btn">Login</button>
+            </form>
 		</div>
 	</section>
 
@@ -106,6 +87,50 @@
     </div>
 </footer>
 
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCGeVx4ZmZPMXjeBR71lHbxVy8i-4gD9uQ",
+      authDomain: "barangaybuddy.firebaseapp.com",
+      databaseURL: "https://barangaybuddy-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "barangaybuddy",
+      storageBucket: "barangaybuddy.appspot.com",
+      messagingSenderId: "107104492368",
+      appId: "1:107104492368:web:8896aec25ca1838cefaa55"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app); 
+    
+
+    let EmailAdd = document.getElementById('EmailAdd');
+    let Password = document.getElementById('Password');
+    let LoginForm = document.getElementById('LoginForm');
+
+    let SignInUser = evt => {
+        evt.preventDefault();
+
+        signInWithEmailAndPassword(auth, EmailAdd.value,  Password.value)
+        .then((credentials)=>{
+        window.location.assign("index.html");
+            console.log(credentials);
+
+        })
+        .catch((error)=>{
+            alert(error.message);
+            console.log(error.code);
+            console.log(error.message);
+        })
+    }
+    LoginForm.addEventListener('submit', SignInUser);
+  </script>
 
 <script src="./assets/js/main.js"></script>
 </body>
