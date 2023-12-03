@@ -261,12 +261,14 @@ i{
     justify-content: center;
     align-items: center;
     padding-block: 2.5rem;
+    color: black;
 }
 
 .management-area-container {
     margin:0 auto;
     padding: 0 20rem;
     gap:var(--gap-meduim);
+    color: black;
 }
 
 .card-group{

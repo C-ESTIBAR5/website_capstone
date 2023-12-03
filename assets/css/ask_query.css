@@ -248,7 +248,7 @@ i{
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 20px;
     margin:0 auto;
-    padding: 0 1.5rem 5rem;
+    padding: 0 1.5rem;
 }
 
 .card-dashboard {
@@ -260,16 +260,13 @@ i{
 .management-area {
     justify-content: center;
     align-items: center;
-    height: 250px;
     padding-block: 2.5rem;
-    color: black;
 }
 
 .management-area-container {
     margin:0 auto;
     padding: 0 20rem;
     gap:var(--gap-meduim);
-    color: black;
 }
 
 .card-group{
@@ -280,49 +277,54 @@ i{
     border-bottom: none;
 }
 
+.card-body-link {
+    font-size:var(--font-size-small);
+    background-color: var(--accent-color);
+    margin-bottom: var(--margin-medium);
+    padding: 1.5rem;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: var(--gap-small);
+}
+
+.card-group .card {
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    min-height: 17.5rem;
+    border-radius: .4rem;
+}
+
+.card-group .card::after {
+    content: '';
+    position: absolute;
+    width: 10rem;
+    height: 10rem;
+    top: -2px;
+    right: -2px;
+    z-index: -1;
+    border-radius: inherit;
+}
+
 .border-gray::after {
     background-image: linear-gradient(235deg, var(--accent-color), transparent, var(--dark-color));
 }
 
-.announcement-title {
-    width: 30%;
-    height: 40px;
-    background: transparent;
-    border: none;
-    outline: none;
-    border: 2px solid rgba(255, 255, 255, .2);
-    border-radius: 40px;
-    color: var(--light-color);
-    font-size: 16px;
-    padding: 20px 45px 20px 20px;
-    gap: var(--gap-meduim)
+.card-group .card-description {
+    margin-bottom: var(--margin-medium);
 }
 
-.announcement-body {
-    width: 100%;
-    height: 200%;
-    background: transparent;
-    border: none;
-    outline: none;
-    border: 2px solid rgba(255, 255, 255, .2);
-    border-radius: 40px;
+.card-group .list-link {
+    background-color: var(--transparent-button-color);
     color: var(--light-color);
-    font-size: 16px;
-    padding: 20px 45px 20px 20px;
-    gap: var(--gap-meduim)
 }
 
-.post-btn {
-    width: 50%;
-    height: 50px;
-    background: var(--accent-color);
-    border: none;
-    outline: none;
-    border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
-    cursor: pointer;
-    font-size: var(--font-size-medium);
-    font-weight: 600;
+.example-image {
+    width: 200px;
+    height: 200px;
 }
 
 /*footer*/
@@ -331,19 +333,22 @@ i{
     color: var(--dark-color-lighter);
     background-color: var(--dark-color);
     padding: 1.35rem 0;
-    margin-top: 50.1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 .footer-container {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-meduim);
-   
+    gap: var(--gap-medium);
 }
+
 
 .footer .list-link {
     padding-left: 0;
     color: var(--accent-color);
+    bottom: 0;
 }
 
 .copyright-information {
@@ -401,6 +406,7 @@ i{
     .footer-container {
         flex-direction: row;
         align-items: center;
+        bottom: 0;
     }
 
     .copyright-information {
@@ -410,10 +416,12 @@ i{
     .footer .list{
         flex-direction: row;
         margin-left: auto;
+        bottom: 0;
     }
 
     .footer .list-link{
         padding-left: 1.5rem;
+        bottom: 0;
     }
 }
 
@@ -499,42 +507,19 @@ i{
     }
 }
 
-.wrapper .btn {
-    width: 100%;
-    height: 45px;
-    background: var(--accent-color);
-    border: none;
-    outline: none;
-    border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
-    cursor: pointer;
-    font-size: var(--font-size-medium);
-    font-weight: 600;
+.report-content {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease-out;
+    text-align: justify;
 }
 
-.wrapper {
-    width: 420px;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, .2);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-    border-radius: 20px;
-    padding: 30px 40px;
+.report-content p {
+    margin: 0; 
 }
 
-.wrapper h1 {
-    font-size: var(--font-size-larger);
+.report-content h1,
+.report-content h5 {
     text-align: center;
 }
 
-.wrapper .input-box {
-    position: relative;
-    width: 100%;
-    height: 50px;
-    margin: 30px 0;
-}
-
-.icon-btn {
-    width: 3.5rem;
-    height: 3.5rem;
-}

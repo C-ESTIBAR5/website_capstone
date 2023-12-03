@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reports</title>
+    <title>Ask & Queries</title>
 
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/reports.css">
+    <link rel="stylesheet" href="./assets/css/ask_query.css">
 </head>
 
 <body>
@@ -71,16 +71,17 @@
         </nav>
 </header>
 
-<section  class="management-area">
+<section class="management-area">
     <div class="management-area-container">
         <div class="dashboard">
-
-            <!-- Add a container with an id to hold the dynamically generated content -->
-            <div id="dynamicContentContainer" class="card-dashboard">
-                <h2 id="reports" class="title independent-title"><b>REPORTS</b></h2>
-                <div id="reportsContainer" class="card-dashboard"></div>
+        <div class="card-dashboard">
+        <h2 class="title independent-title">Manage Appointments</h2>
+            <div class="card-body">
+                <a href="" class="card-body-link">
+                    
+                </a>
             </div>
-
+        </div>
         </div>
     </div>
 </section>
@@ -102,71 +103,6 @@
     </div>
 </footer>
 
-<script type="module">
-   
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-    import { getDatabase, ref, onValue  } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
-
-    
-    const firebaseConfig = {
-      apiKey: "AIzaSyCGeVx4ZmZPMXjeBR71lHbxVy8i-4gD9uQ",
-      authDomain: "barangaybuddy.firebaseapp.com",
-      databaseURL: "https://barangaybuddy-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "barangaybuddy",
-      storageBucket: "barangaybuddy.appspot.com",
-      messagingSenderId: "107104492368",
-      appId: "1:107104492368:web:8896aec25ca1838cefaa55"
-    };
-    const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-const reportsContainer = document.getElementById('reportsContainer');
-
-// Listen for changes in the 'Resident_Reports' path
-const dbRef = ref(database, 'Resident_Reports');
-
-onValue(dbRef, (snapshot) => {
-    // Clear existing content in the container
-    reportsContainer.innerHTML = '';
-
-    // Iterate through each child in the snapshot
-    snapshot.forEach((childSnapshot) => {
-        const childData = childSnapshot.val();
-
-        // Create a new report element
-        const reportElement = document.createElement('div');
-        reportElement.classList.add('card-body-link');
-        reportElement.style.cursor = 'pointer'; // Set cursor to pointer
-
-        // Add an event listener to navigate to another page when the div is clicked
-        reportElement.addEventListener('click', () => {
-            // Assuming you have a function to handle the navigation and pass data
-            navigateToReportPage(childData);
-        });
-
-        // Populate the report element with data
-        reportElement.innerHTML = `
-            <h1><b>Name: ${childData.resName}</b></h1>
-            <h5><b>Current Location: ${childData.resCurLoc}</b></h5>
-            <p id="title-content">${childData.resReport}</p>
-        `;
-
-        reportsContainer.appendChild(reportElement);
-    });
-});
-
-// Function to navigate to another page with the selected report data
-function navigateToReportPage(reportData) {
-    window.location.href = 'try.html?report=' + encodeURIComponent(JSON.stringify(reportData));
-    // Example: window.location.href = 'newPage.html?report=' + encodeURIComponent(JSON.stringify(reportData));
-    console.log('Navigate to another page with report data:', reportData);
-}
-
-reportElement.addEventListener('click', () => {
-    navigateToReportPage(childData);
-});
-
-
-  </script>
 
 <script src="./assets/js/main.js"></script>
 </body>

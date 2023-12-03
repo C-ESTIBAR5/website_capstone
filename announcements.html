@@ -75,27 +75,27 @@
 <section class="management-area">
     <div class="management-area-container">
         <div class="dashboard">
-
+            <h2 class="title independent-title">Publish an Announcement</h2>
             <form id="announcementsForm">
                 <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input type="text" class="ri-user-line" id="title" placeholder="Title" required>
-                  </div>
-    
-                  <div class="mb-3">
-                    <label for="announcement" class="form-label">Announcement</label>
-                    <textarea class="ri-user-line" id="announcement" rows="3"></textarea>
-    
-                    <div class="mb-3">
-                    <label for="formFile" id="PicUpload" class="form-label">Please upload a picture</label>
+                    <label for="title" class="form-label"><b>Title: </b> </label>
+                    <input type="text" class="announcement-title" id="title" placeholder="Title" required>
+                </div>
+                <br>
+                <div class="mb-3">
+                    <label for="announcement" class="form-label"><b>Body:  </b></label>
+                    <textarea class="announcement-body" id="announcement" rows="3"></textarea>
+                </div>
+                <br>
+                <div class="mb-3">
+                    <label for="formFile" id="PicUpload" class="form-label"><b>Upload a picture:</b></label>
                     <input class="form-control" type="file" id="formFile" accept="image/*">
-                 </div>
-                    
-                 <button type="button" id="PostAnnouncement" class="btn">Post Announcement</button>
+                </div>
+                <br>
+                 <button type="button" id="PostAnnouncement" class="post-btn">Post Announcement</button>
                 </form>
-                  </div>
             </div>
-            
+        </div>
     </div>
 </section>
 
