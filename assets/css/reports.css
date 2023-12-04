@@ -239,7 +239,6 @@ i{
     padding: 2.5rem 0 1.25;
 }
 
-/*management*/
 .dashboard {
     text-align: center;
     background-color: transparent;
@@ -247,7 +246,7 @@ i{
     border: 2px solid rgba(255, 255, 255, .2);
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 20px;
-    margin:0 auto;
+    margin: 0 auto;
     padding: 0 1.5rem;
 }
 
@@ -261,12 +260,15 @@ i{
     justify-content: center;
     align-items: center;
     padding-block: 2.5rem;
+    margin-bottom: var(--gap-meduim);
 }
+
 
 .management-area-container {
     margin:0 auto;
     padding: 0 20rem;
     gap:var(--gap-meduim);
+    margin-bottom: var(--gap-meduim);
 }
 
 .card-group{
@@ -523,3 +525,55 @@ i{
     text-align: center;
 }
 
+.report-content-container {
+    margin-bottom: var(--gap-meduim);
+}
+
+.reply-submit {
+    font-size:var(--font-size-small);
+    background-color: var(--accent-color);
+    margin-bottom: var(--margin-medium);
+    padding: 1.5rem;
+    border-radius: 20px;
+    align-items: center;
+    gap: var(--gap-small);
+}
+.reply-area {
+    width: 100%;
+    height: 200%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    color: var(--light-color);
+    font-size: 16px;
+    padding: 20px 45px 20px 20px;
+    gap: var(--gap-meduim)
+}
+
+#acknowledge-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: var(--margin-medium) 0;
+    background-color: var(--accent-color);
+    color: var(--light-color);
+    padding: 1.5rem;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 150px; /* Set the width as needed */
+}
+
+
+#reports-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--font-size-larger); /* Adjust font size as needed */
+    color: var(--accent-color); /* Set the color to your desired accent color */
+}
+
+#reportContainer {
+    gap: var(--gap-meduim);
+}

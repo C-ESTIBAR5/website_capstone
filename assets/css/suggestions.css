@@ -500,3 +500,13 @@ i{
         color:var(--accent-color);
     }
 }
+
+#suggestions-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--font-size-larger); /* Adjust font size as needed */
+    color: var(--accent-color); /* Set the color to your desired accent color */
+}
+
+

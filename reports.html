@@ -58,33 +58,167 @@
                 </button>
                 <button class="icon-btn place-items-center">
                     <a href="profile.php">
-                    <i class="ri-user-3-line"></i>
+                        <i class="ri-user-3-line"></i>
                     </a>
                 </button>
                 <button class="icon-btn place-items-center">
                     <a href="login.php">
-                    <i class="ri-logout-box-r-line"></i>
+                        <i class="ri-logout-box-r-line"></i>
                     </a>
                 </button>
             </div>
-
         </nav>
-</header>
+    </header>
 
-<section  class="management-area">
-    <div class="management-area-container">
-        <div class="dashboard">
+<section class="management-area">
+    <div class="management-area-container container"> 
+        <h2 id="reports-title">Residents Reports</h2>
+    <div id="reportsContainer" class="dashboard card-dashboard"></div>
+    <br>
 
-            <!-- Add a container with an id to hold the dynamically generated content -->
-            <div id="dynamicContentContainer" class="card-dashboard">
-                <h2 id="reports" class="title independent-title"><b>REPORTS</b></h2>
-                <div id="reportsContainer" class="card-dashboard"></div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import { getDatabase, ref, onValue, push, serverTimestamp, update } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCGeVx4ZmZPMXjeBR71lHbxVy8i-4gD9uQ",
+            authDomain: "barangaybuddy.firebaseapp.com",
+            databaseURL: "https://barangaybuddy-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "barangaybuddy",
+            storageBucket: "barangaybuddy.appspot.com",
+            messagingSenderId: "107104492368",
+            appId: "1:107104492368:web:8896aec25ca1838cefaa55"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const reportsContainer = document.getElementById('reportsContainer');
+        const userId = "Admin";
+
+        function createReportElement(reportData, userId) {
+            const reportTemplate = document.createElement('div');
+            reportTemplate.classList.add('dashboard', 'card-dashboard');
+
+            const resId = reportData.resId;
+            const reportRef = ref(database, `Resident_Reports/${resId}`);
+
+            reportTemplate.innerHTML = `
+            <section class="management-area-report"> 
+            <h1 class="title independent-title">Sender: <span id="name">${reportData.resName || 'N/A'}</span></h1>
+            <h3 class="report-location">Current Location: <span id="currentLocation">${reportData.resCurLoc || 'N/A'}</span></h3>
+            <div class="report-content-container">
+                <h3 class="report-content"><b>Report Content: </b> ${reportData.resReport || 'N/A'}</h3>
+                <div id="reportContent-${resId}"></div>
+                <div id="repliesContainer-${resId}"></div>
             </div>
+            <div class="acknowledgement-container"></div>
+            <button class="card-body-link" onclick="viewReport('${reportData.resReport || 'N/A'}', '${resId}')">View Report</button>
+            <button class="card-body-link" onclick="toggleReplyForm('${resId}')">Reply</button>
+            <div id="replyForm-${resId}" style="display: none;">
+                <textarea class="reply-area" rows="4" placeholder="Type your reply here..." id="replyMessage-${resId}"></textarea>
+                <button class="reply-submit" onclick="sendReply('${resId}')">Send Reply</button>
+            </div>
+            </section>
+            `;
 
-        </div>
+            return reportTemplate;
+        }
+
+        function renderReports(reports, userId) {
+            reportsContainer.innerHTML = '';
+
+            reports.sort((a, b) => b.timestamp - a.timestamp);
+
+            reports.slice().reverse().forEach(reportData => {
+                const reportElement = createReportElement(reportData, userId);
+                reportsContainer.appendChild(reportElement);
+                loadReplies(reportData.resId);
+            });
+        }
+
+        function loadReplies(resId) {
+            const repliesContainer = document.getElementById(`repliesContainer-${resId}`);
+            if (repliesContainer) {
+                const repliesRef = ref(database, `Resident_Reports/${resId}/replies`);
+                onValue(repliesRef, (snapshot) => {
+                    const replies = [];
+                    snapshot.forEach((childSnapshot) => {
+                        const childData = childSnapshot.val();
+                        replies.push({
+                            userId: childData.userId,
+                            reply: childData.reply,
+                            timestamp: childData.timestamp
+                        });
+                    });
+
+                    repliesContainer.innerHTML = '';
+                    replies.forEach(replyData => {
+                        const replyElement = document.createElement('div');
+                        replyElement.innerHTML = `
+                        <p><b>${replyData.userId}:</b> ${replyData.reply}</p>
+                        `;
+                        repliesContainer.appendChild(replyElement);
+                    });
+                });
+            }
+        }
+
+        const dbRef = ref(database, 'Resident_Reports');
+
+        onValue(dbRef, (snapshot) => {
+            const reports = [];
+            snapshot.forEach((childSnapshot) => {
+                const childData = childSnapshot.val();
+                reports.push({
+                    resName: childData.resName,
+                    resCurLoc: childData.resCurLoc,
+                    resReport: childData.resReport,
+                    resId: childData.resId,
+                    timestamp: childData.timestamp
+                });
+            });
+
+            renderReports(reports);
+        });
+
+        function viewReport(content, resId) {
+            const reportContentContainer = document.getElementById(`reportContent-${resId}`);
+            if (reportContentContainer) {
+                reportContentContainer.textContent = content;
+            }
+        }
+
+        function toggleReplyForm(resId) {
+            const replyForm = document.getElementById(`replyForm-${resId}`);
+            if (replyForm) {
+                replyForm.style.display = replyForm.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        function sendReply(resId) {
+            const replyMessage = document.getElementById(`replyMessage-${resId}`);
+            if (replyMessage) {
+                const message = replyMessage.value;
+
+                if (resId && userId && message) {
+                    const reportRef = ref(database, `Resident_Reports/${resId}`);
+                    update(reportRef, {
+                        replies: message
+                    });
+
+                    alert(`Sending reply to ${resId} from user ${userId}: ${message}`);
+                } else {
+                    alert("Error: Unable to send reply. Missing information.");
+                }
+            }
+        }
+
+        window.viewReport = viewReport;
+        window.toggleReplyForm = toggleReplyForm;
+        window.sendReply = sendReply;
+    </script>
     </div>
 </section>
-
 
 <footer class="footer">
     <div class="footer-container container">
@@ -102,72 +236,6 @@
     </div>
 </footer>
 
-<script type="module">
-   
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-    import { getDatabase, ref, onValue  } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
-
-    
-    const firebaseConfig = {
-      apiKey: "AIzaSyCGeVx4ZmZPMXjeBR71lHbxVy8i-4gD9uQ",
-      authDomain: "barangaybuddy.firebaseapp.com",
-      databaseURL: "https://barangaybuddy-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "barangaybuddy",
-      storageBucket: "barangaybuddy.appspot.com",
-      messagingSenderId: "107104492368",
-      appId: "1:107104492368:web:8896aec25ca1838cefaa55"
-    };
-    const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-const reportsContainer = document.getElementById('reportsContainer');
-
-// Listen for changes in the 'Resident_Reports' path
-const dbRef = ref(database, 'Resident_Reports');
-
-onValue(dbRef, (snapshot) => {
-    // Clear existing content in the container
-    reportsContainer.innerHTML = '';
-
-    // Iterate through each child in the snapshot
-    snapshot.forEach((childSnapshot) => {
-        const childData = childSnapshot.val();
-
-        // Create a new report element
-        const reportElement = document.createElement('div');
-        reportElement.classList.add('card-body-link');
-        reportElement.style.cursor = 'pointer'; // Set cursor to pointer
-
-        // Add an event listener to navigate to another page when the div is clicked
-        reportElement.addEventListener('click', () => {
-            // Assuming you have a function to handle the navigation and pass data
-            navigateToReportPage(childData);
-        });
-
-        // Populate the report element with data
-        reportElement.innerHTML = `
-            <h1><b>Name: ${childData.resName}</b></h1>
-            <h5><b>Current Location: ${childData.resCurLoc}</b></h5>
-            <p id="title-content">${childData.resReport}</p>
-        `;
-
-        reportsContainer.appendChild(reportElement);
-    });
-});
-
-// Function to navigate to another page with the selected report data
-function navigateToReportPage(reportData) {
-    window.location.href = 'try.html?report=' + encodeURIComponent(JSON.stringify(reportData));
-    // Example: window.location.href = 'newPage.html?report=' + encodeURIComponent(JSON.stringify(reportData));
-    console.log('Navigate to another page with report data:', reportData);
-}
-
-reportElement.addEventListener('click', () => {
-    navigateToReportPage(childData);
-});
-
-
-  </script>
-
-<script src="./assets/js/main.js"></script>
+    <script src="./assets/js/main.js"></script>
 </body>
 </html>

@@ -78,8 +78,12 @@
                 <h1 class="title independent-title">Title: <span id="name"></span></h1>
                 <h3 class="report-location">Current Location: <span id="currentLocation"></span></h3>  
                 <p id="reportContent" class="report-content"></p> 
+                
             </div>
+            <button type="submit" id="acknowledge" class="card-body-link">Acknowledge</button>
+            <p id="acknowledgement-container"></p>
         </div>
+        
     </div>
 </section>
 
@@ -118,23 +122,30 @@
             }
         });
     </script>
-    
-<footer class="footer">
-    <div class="footer-container container">
-        <span class="copyright-information">
-            &copy; 2023 Barangay Buddy. All right reserved.
-        </span>
-        <ul class="list">
-            <li class="list-item">
-                <a href="#" class="list-link">Privacy Policy</a>
-            </li>
-            <li class="list-item">
-                <a href="#" class="list-link">About Us</a>
-            </li>
-        </ul>
-    </div>
-</footer>
 
+    <script>
+
+   // Function to handle acknowledgment
+function acknowledgeReport() {
+    // Update the content or perform any actions you want
+    const acknowledgementMessage = "This report has now been acknowledged";
+    
+    // Assuming you have an element to display the acknowledgment message
+    const acknowledgementContainer = document.getElementById('acknowledgement-container');
+    
+    // Update the content of the element
+    if (acknowledgementContainer) {
+        acknowledgementContainer.textContent = acknowledgementMessage;
+    }
+}
+
+// Add an event listener to the Acknowledge button
+const acknowledgeButton = document.getElementById('acknowledge');
+if (acknowledgeButton) {
+    acknowledgeButton.addEventListener('click', acknowledgeReport);
+}
+        </script>
+    
 <script src="./assets/js/main.js"></script>
 </body>
 </html>

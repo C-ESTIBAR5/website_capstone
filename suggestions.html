@@ -70,22 +70,87 @@
 
         </nav>
 </header>
-
 <section class="management-area">
-    <div class="management-area-container">
-        <div class="dashboard">
-        <div class="card-dashboard">
-        <h2 class="title independent-title">Residents Suggestions</h2>
-            <div class="card-body">
-                <a href="" class="card-body-link">
-                   
-                </a>
-            </div>
-        </div>
-        </div>
-    </div>
-</section>
+<div class="management-area-container">
+<h2 id="suggestions-title">Residents Suggestions</h2>
 
+<div id="reportsContainer" class="dashboard card-dashboard"></div>
+    <div id="reportTemplate" class="dashboard card-dashboard" style="display: none;">
+        
+        <h1 class="title independent-title">Sender: <span id="name">N/A</span></h1>
+        <h3 class="report-location">Current Location: <span id="currentLocation">N/A</span></h3>
+        <h3 class="report-content"> <span id="reportContent">N/A</span></h3>
+        <div class="acknowledgeainer"></div>
+        <button id="viewReportButton" type="button" class="card-body-link">View Report</button>
+    </div>     
+</div>            
+</section>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCGeVx4ZmZPMXjeBR71lHbxVy8i-4gD9uQ",
+            authDomain: "barangaybuddy.firebaseapp.com",
+            databaseURL: "https://barangaybuddy-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "barangaybuddy",
+            storageBucket: "barangaybuddy.appspot.com",
+            messagingSenderId: "107104492368",
+            appId: "1:107104492368:web:8896aec25ca1838cefaa55"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const reportsContainer = document.getElementById('reportsContainer');
+
+        function createSuggestionElement(suggestionData) {
+            const suggestionTemplate = document.createElement('div');
+            suggestionTemplate.classList.add('dashboard', 'card-dashboard');
+
+            suggestionTemplate.innerHTML = ` 
+                <h1 class="title independent-title">Sender: <span id="name">${suggestionData.sugName || 'N/A'}</span></h1>
+                <h3 class="report-location">Suggestion: <span id="currentLocation">${suggestionData.suggest || 'N/A'}</span></h3>
+                <div class="report-content-container">
+                    <!-- No button for Suggestions -->
+                </div>
+            `;
+
+            return suggestionTemplate;
+        }
+
+        function renderSuggestions(suggestions) {
+            // Clear existing suggestions
+            reportsContainer.innerHTML = '';
+
+            // Create and append suggestion elements to the container in reversed order
+            suggestions.slice().reverse().forEach(suggestionData => {
+                const suggestionElement = createSuggestionElement(suggestionData);
+                reportsContainer.appendChild(suggestionElement);
+            });
+        }
+
+        const dbRef = ref(database, 'Suggestions');
+
+        onValue(dbRef, (snapshot) => {
+            // Initialize an array to hold suggestion data
+            const suggestions = [];
+
+            // Iterate through each child in the snapshot
+            snapshot.forEach((childSnapshot) => {
+                const childData = childSnapshot.val();
+
+                // Add child data to the suggestions array
+                suggestions.push({
+                    sugName: childData.sugName,
+                    suggest: childData.suggest,
+                    timestamp: childData.timestamp
+                });
+            });
+
+            // Render suggestions
+            renderSuggestions(suggestions);
+        });
+    </script>
 
 <footer class="footer">
     <div class="footer-container container">
