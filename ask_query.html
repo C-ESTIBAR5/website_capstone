@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ask & Queries</title>
+    <title>Reports</title>
 
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/ask_query.css">
@@ -58,52 +58,182 @@
                 </button>
                 <button class="icon-btn place-items-center">
                     <a href="profile.php">
-                    <i class="ri-user-3-line"></i>
+                        <i class="ri-user-3-line"></i>
                     </a>
                 </button>
                 <button class="icon-btn place-items-center">
                     <a href="login.php">
-                    <i class="ri-logout-box-r-line"></i>
+                        <i class="ri-logout-box-r-line"></i>
                     </a>
                 </button>
             </div>
-
         </nav>
-</header>
-
-<section class="management-area">
-    <div class="management-area-container">
-        <div class="dashboard">
-        <div class="card-dashboard">
-        <h2 class="title independent-title">Manage Appointments</h2>
-            <div class="card-body">
-                <a href="" class="card-body-link">
-                    
-                </a>
-            </div>
-        </div>
-        </div>
-    </div>
-</section>
+    </header>
 
 
-<footer class="footer">
-    <div class="footer-container container">
-        <span class="copyright-information">
-            &copy; 2023 Barangay Buddy. All right reserved.
-        </span>
-        <ul class="list">
-            <li class="list-item">
-                <a href="#" class="list-link">Privacy Policy</a>
-            </li>
-            <li class="list-item">
-                <a href="#" class="list-link">About Us</a>
-            </li>
-        </ul>
-    </div>
-</footer>
+    <section class="management-area">
+        <div class="management-area-container container"> 
+            <h2 id="reports-title">Chat</h2>
+            <div id="reportsContainer" class="dashboard card-dashboard"></div>
+            <br>
+
+            <script type="module">
+                import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+                import { getDatabase, ref, onValue, update, push } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+            
+                const firebaseConfig = {
+                    apiKey: "AIzaSyCGeVx4ZmZPMXjeBR71lHbxVy8i-4gD9uQ",
+                    authDomain: "barangaybuddy.firebaseapp.com",
+                    databaseURL: "https://barangaybuddy-default-rtdb.asia-southeast1.firebasedatabase.app",
+                    projectId: "barangaybuddy",
+                    storageBucket: "barangaybuddy.appspot.com",
+                    messagingSenderId: "107104492368",
+                    appId: "1:107104492368:web:8896aec25ca1838cefaa55"
+                };
+            
+                const app = initializeApp(firebaseConfig);
+                const database = getDatabase(app);
+                const reportsContainer = document.getElementById('reportsContainer');
+                const userId = "Admin"; // Change this to the actual user ID when implemented
+                let dbRef;
+            
+                async function fetchData() {
+                    try {
+                        dbRef = ref(database, 'Queries');
+                        const snapshot = await onValue(dbRef, (snapshot) => {
+                            const reports = [];
+            
+                            snapshot.forEach((childSnapshot) => {
+                                const childData = childSnapshot.val();
+                                reports.push({
+                                    askName: childData.askName,
+                                    askField: childData.askField,
+                                    resReport: childData.resReport,
+                                    askId: childData.askId,
+                                    timestamp: childData.timestamp,
+                                    replies: childData.replies || [], // Load replies
+                                });
+                            });
+            
+                            console.log("Reports:", reports);
+                            renderReports(reports);
+                        });
+                    } catch (error) {
+                        console.error("Error fetching data:", error);
+                    }
+                }
+            
+                onValue(ref(database, 'Queries'), fetchData);
+            
+                function renderReports(reports) {
+                    reportsContainer.innerHTML = '';
+            
+                    reports.forEach(reportData => {
+                        const reportElement = createReportElement(reportData, userId);
+                        console.log('Report Element:', reportElement); // Add this line for debugging
+                        reportsContainer.appendChild(reportElement);
+                        loadReplies(reportData.askId);
+                    });
+                }
+            
+                function loadReplies(askId) {
+                    const repliesContainer = document.getElementById(`repliesContainer-${askId}`);
+                    if (repliesContainer) {
+                        const repliesRef = ref(database, `Queries/${askId}/replies`);
+                        onValue(repliesRef, (snapshot) => {
+                            const replies = [];
+            
+                            snapshot.forEach((childSnapshot) => {
+                                const childData = childSnapshot.val();
+                                replies.push({
+                                    userId: childData.userId,
+                                    reply: childData.reply,
+                                    timestamp: childData.timestamp,
+                                });
+                            });
+            
+                            repliesContainer.innerHTML = '';
+                            replies.forEach(replyData => {
+                                const replyElement = document.createElement('div');
+                                replyElement.innerHTML = `<p><b>${replyData.userId}:</b> ${replyData.reply}</p>`;
+                                repliesContainer.appendChild(replyElement);
+                            });
+                        });
+                    }
+                }
+            
+            function createReportElement(reportData, userId) {
+                const reportTemplate = document.createElement('div');
+                reportTemplate.classList.add('dashboard', 'card-dashboard');
+
+                const askId = reportData.askId;
+                const isSenderAdmin = reportData.askId === 'Admin'; // Check if the sender is admin
+
+                // Conditionally add a class based on the sender
+                 reportTemplate.classList.add(isSenderAdmin ? 'admin-report' : 'sender-report');
+
+                reportTemplate.innerHTML = `
+                <section class="management-area-report"> 
+                        <h1 class="title independent-title">Sender: <span id="name">${reportData.askName || 'N/A'}</span></h1>
+                        <h3 class="report-location">Question: <span id="currentLocation">${reportData.askField || 'N/A'}</span></h3>
+                    <div class="report-content-container">
+                        <h3 class="report-content"><b>Report Content: </b> ${reportData.resReport || 'N/A'}</h3>
+                    <div id="reportContent-${askId}"></div>
+                    <div id="repliesContainer-${askId}"></div>
+                            <textarea class="reply-area" rows="4" placeholder="Type your reply here..." id="replyMessage-${askId}"></textarea>
+                             <button class="reply-submit" onclick="sendReply('${askId}')">Send Reply</button>
+                             </div>
+                     <div class="acknowledgement-container"></div>
+                     </section>
+    `;
+
+    return reportTemplate;
+}
+            
+                function viewReport(content, askId) {
+                    const reportContentContainer = document.getElementById(`reportContent-${askId}`);
+                    if (reportContentContainer) {
+                        reportContentContainer.textContent = content;
+                    }
+                }
+            
+                function toggleReplyForm(askId) {
+                    const replyForm = document.getElementById(`replyForm-${askId}`);
+                    if (replyForm) {
+                        replyForm.style.display = replyForm.style.display === 'none' ? 'block' : 'none';
+                    }
+                }
+            
+                function sendReply(askId) {
+                    const replyMessage = document.getElementById(`replyMessage-${askId}`);
+                    if (replyMessage) {
+                        const message = replyMessage.value;
+            
+                        if (askId && userId && message) {
+                            const repliesRef = ref(database, `Queries/${askId}/replies`);
+                            push(repliesRef, {
+                                userId: userId,
+                                reply: message,
+                                timestamp: new Date().toString(),
+                            });
+            
+                            alert(`Sending reply to ${askId} from user ${userId}: ${message}`);
+                        } else {
+                            alert("Error: Unable to send reply. Missing information.");
+                        }
+                    }
+                }
+            
+                window.viewReport = viewReport;
+                window.toggleReplyForm = toggleReplyForm;
+                window.sendReply = sendReply;
+            </script>
+            
+            
+            
 
 
-<script src="./assets/js/main.js"></script>
+
+    <script src="./assets/js/main.js"></script>
 </body>
 </html>
