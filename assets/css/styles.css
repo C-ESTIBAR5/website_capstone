@@ -132,12 +132,12 @@ i{
 .align-right {
     margin-left: auto;
     background-color: var(--accent-color);
-    border-radius: .4rem;
+    border-radius: .8rem;
 }
 
 .icon-btn {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .theme-dark-icon {
